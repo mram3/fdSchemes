@@ -2,6 +2,10 @@
 *.exe
 ccds
 order
+pds
 
-# Ignore VS Code settings (optional but good practice)
+*.csv
+*.png
+
+# Ignore VS Code settings
 .vscode/
