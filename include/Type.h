@@ -9,7 +9,8 @@ enum class MeshType{
 enum class Accuracy{
     firstOrder,
     secondOrder,
-    fourthOrder
+    fourthOrder,
+    sixthOrder
 };
 
 #endif

@@ -13,6 +13,15 @@ Compiling Instruction: g++ 1_PolynomialDS.cpp src/*.cpp -Iinclude -std=c++17 -o 
 
 using namespace std;
 
+double meshFunction(int i, double xmin, double xmax, int N){
+    double PI = acos(-1);
+    return -((xmax-xmin)/2)*cos(i*PI/N) + ((xmax+xmin)/2);
+}
+
+double exactFunction(double x){
+    return exp(-x)*sin(x);
+}
+
 double exactFirstDeriv(double x){
     return exp(-x) * (cos(x)-sin(x));
 }
@@ -22,7 +31,7 @@ double exactSecondDeriv(double x){
 }
 
 int main(){
-    int N, A, O, T;
+    int N, A, O;
     double xmax, xmin;
     string str;
 
@@ -42,28 +51,8 @@ int main(){
     cin >> xmax;
     cout << endl;
 
-    cout << "Mesh Type\n";
-    cout << "Enter 1 for Uniform Mesh\n";
-    cout << "Enter 2 for Non-Uniform Mesh\n";
-    cout << "Enter: ";
-    cin  >> T;
-
-    MeshType mtype;
-    if(T==1){
-        mtype = MeshType::Uniform;
-        str = "Uniform ";
-    }
-    else if(T==2){
-        mtype = MeshType::nonUniform;
-        str = "Non-Uniform ";
-    }
-    else{
-        cout<<"\nError: Enter valid mesh type. Program terminated\n";
-        return 1;
-    }
-
-    Grid mesh(N, xmin, xmax, mtype);
-    mesh.Phi();
+    Grid mesh(N, xmin, xmax, meshFunction);
+    mesh.Phi(exactFunction);
     cout << str<<"Mesh is created successfully\n\n";
 
     cout << "Desired order of derivative\n";
@@ -105,7 +94,7 @@ int main(){
     Solver solve;
 
     if(O==1){
-        solve.computeFirstDeriv(mesh, accuracy);
+        solve.explicitFirstDeriv(mesh, accuracy);
         //Writing the output file to csv file
         file <<str<<"First Derivative"<<endl;
         file<<"x,numerical solution, exact solution, error"<<endl;
@@ -116,7 +105,7 @@ int main(){
         }
     }
     else if(O==2){
-        solve.computeSecondDeriv(mesh, accuracy);
+        solve.explicitSecondDeriv(mesh, accuracy);
         //Writing the output file to csv file
         file<<str<<"Second Derivative"<<endl;
         file<<"x,numerical solution, exact solution, error"<<endl;

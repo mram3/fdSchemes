@@ -3,6 +3,7 @@
 
 #include "Type.h"
 #include <vector>
+#include <functional>
 
 class Grid
 {
@@ -18,10 +19,10 @@ public:
         int N,
         double xmin,
         double xmax,
-        MeshType type
+        std::function<double(int, double, double, int)> meshFunction
     );
 
-    void Phi();
+    void Phi(std::function<double(double)> exactFunction);
 };
 
 #endif

@@ -14,7 +14,7 @@ Grid::Grid(
     int N_,
     double xmin_,
     double xmax_,
-    MeshType type
+    function<double(int, double, double, int)> meshFunction
 )
 {
     N = N_;
@@ -22,28 +22,17 @@ Grid::Grid(
     xmax = xmax_;
     x.assign(N+1, 0.0);
 
-    if(type == MeshType::nonUniform){
-        const double PI = acos(-1.0);
-        for (int i = 0; i <= N; i++){
-            x[i] =
-                -((xmax-xmin)/2)*cos(i*PI/N) + ((xmax+xmin)/2);
-        }
-    }
-
-    else if(type == MeshType::Uniform){
-        double dy = (xmax-xmin)/N;
-        for(int i = 0; i<=N; i++){
-            x[i] = xmin + i*dy;
-        }
+    for(int i = 0; i <= N; i++){
+        x[i] = meshFunction(i, xmin, xmax, N);
     }
 }
 
-void Grid::Phi()
+void Grid::Phi(function<double(double)> exactFunction)
 {
     phi.assign(N+1, 0.0);
 
     for(int i = 0; i <= N; i++){
         phi[i] = 
-            exp(-x[i])*sin(x[i]);
+            exactFunction(x[i]);
     }
 }

@@ -10,6 +10,15 @@ Compiling Instruction: g++ 1_Order.cpp src/*.cpp -Iinclude -std=c++17 -o order &
 
 using namespace std;
 
+double meshFunction(int i, double xmin, double xmax, int N){
+    double PI = acos(-1);
+    return -((xmax-xmin)/2)*cos(i*PI/N) + ((xmax+xmin)/2);
+}
+
+double exactFunction(double x){
+    return exp(-x)*sin(x);
+}
+
 double exactFirstDeriv(double x){
     return exp(-x) * (cos(x)-sin(x));
 }
@@ -23,13 +32,13 @@ double getError_n_write(
 )
 {
 
-    Grid mesh (N, xmin, xmax, MeshType::nonUniform);
-    mesh.Phi();
+    Grid mesh (N, xmin, xmax, meshFunction);
+    mesh.Phi(exactFunction);
     Solver solve;
     double err, maxErr = 0;
     if(O==1){
         if(A==1){
-            solve.computeFirstDeriv(mesh, Accuracy::firstOrder);
+            solve.explicitFirstDeriv(mesh, Accuracy::firstOrder);
             file << "FIRST ORDER ACCURATE FIRST DERIVATIVE" << endl;
             file << "N = " << N << endl;
             file << "x," << "exact," << "numerical," << "error" << endl;
@@ -45,7 +54,7 @@ double getError_n_write(
             return maxErr;
         }
         else if(A==2){
-            solve.computeFirstDeriv(mesh, Accuracy::secondOrder);
+            solve.explicitFirstDeriv(mesh, Accuracy::secondOrder);
             file << "SECOND ORDER ACCURATE FIRST DERIVATIVE" << endl;
             file << "N = " << N << endl;
             file << "x," << "exact," << "numerical," << "error" << endl;
@@ -63,7 +72,7 @@ double getError_n_write(
     }
     else if(O==2){
         if(A==1){
-            solve.computeSecondDeriv(mesh, Accuracy::firstOrder);
+            solve.explicitSecondDeriv(mesh, Accuracy::firstOrder);
             file << "FIRST ORDER ACCURATE SECOND DERIVATIVE" << endl;
             file << "N = " << N << endl;
             file << "x," << "exact," << "numerical," << "error" << endl;
@@ -79,7 +88,7 @@ double getError_n_write(
             return maxErr;
         }
         else if(A==2){
-            solve.computeSecondDeriv(mesh, Accuracy::secondOrder);
+            solve.explicitSecondDeriv(mesh, Accuracy::secondOrder);
             file << "SECOND ORDER ACCURATE SECOND DERIVATIVE" << endl;
             file << "N = " << N << endl;
             file << "x," << "exact," << "numerical," << "error" << endl;

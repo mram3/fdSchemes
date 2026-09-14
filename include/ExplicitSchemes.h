@@ -3,11 +3,11 @@
 
 #include "Grid.h"
 
-class Schemes //PARENT
+class expSchemes //PARENT
 {
 public:
 
-    virtual ~Schemes() = default;//virtual destructor
+    virtual ~expSchemes() = default;//virtual destructor
 
     virtual double firstDeriv(
         const Grid& mesh, int i
@@ -24,7 +24,7 @@ public:
         BD - Backward Difference
 */
 
-class CDSA: public Schemes //CHILD 1
+class CDSA: public expSchemes //CHILD 1
 {
 public:
     double firstDeriv(
@@ -36,7 +36,7 @@ public:
     ) const override;
 };
 
-class CDFA: public Schemes //CHILD 2
+class CDFA: public expSchemes //CHILD 2
 {
 public:
     double firstDeriv(
@@ -48,7 +48,7 @@ public:
     ) const override;
 };
 
-class FDSA: public Schemes //CHILD 3
+class FDSA: public expSchemes //CHILD 3
 {
 public:
     double firstDeriv(
@@ -60,7 +60,7 @@ public:
     ) const override;
 };
 
-class FDFA: public Schemes //CHILD 4
+class FDFA: public expSchemes //CHILD 4
 {
 public:
     double firstDeriv(
@@ -72,7 +72,7 @@ public:
     ) const override;
 };
 
-class BDSA: public Schemes //CHILD 5
+class BDSA: public expSchemes //CHILD 5
 {
 public:
     double firstDeriv(
@@ -84,7 +84,7 @@ public:
     ) const override;
 };
 
-class BDFA: public Schemes //CHILD 6
+class BDFA: public expSchemes //CHILD 6
 {
 public:
     double firstDeriv(

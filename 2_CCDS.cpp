@@ -11,6 +11,15 @@ Compiling Instruction: g++ 2_CCDS.cpp src/*.cpp -Iinclude -std=c++17 -o ccds && 
 
 using namespace std;
 
+double meshFunction(int i, double xmin, double xmax, int N){
+    double PI = acos(-1);
+    return -((xmax-xmin)/2)*cos(i*PI/N) + ((xmax+xmin)/2);
+}
+
+double exactFunction(double x){
+    return exp(-x)*sin(x);
+}
+
 double exactFirstDeriv(double x){
     return exp(-x) * (cos(x)-sin(x));
 }
@@ -21,14 +30,14 @@ int main(){
     double xmin = 0;
     double xmax = 10;
     vector<double> A, B, C;
-    Grid mesh(N, xmin, xmax, MeshType::Uniform);
-    mesh.Phi();
+    Grid mesh(N, xmin, xmax, meshFunction);
+    mesh.Phi(exactFunction);
 
     Solver solve;
-    solve.implicitscheme(mesh, Accuracy::fourthOrder);
+    solve.implicitFirstDeriv(mesh, Accuracy::fourthOrder);
     A = mesh.f_phi;
 
-    solve.computeFirstDeriv(mesh, Accuracy::secondOrder);
+    solve.explicitFirstDeriv(mesh, Accuracy::secondOrder);
     B = mesh.f_phi;
     for(int i = 0; i<=N;i++){
         C.push_back(exactFirstDeriv(mesh.x[i]));

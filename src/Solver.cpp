@@ -1,6 +1,6 @@
 #include "Solver.h"
 
-void Solver::computeFirstDeriv(
+void Solver::explicitFirstDeriv(
     Grid& mesh, Accuracy order
 )
 {
@@ -39,7 +39,7 @@ void Solver::computeFirstDeriv(
     }
 }
 
-void Solver::computeSecondDeriv(
+void Solver::explicitSecondDeriv(
     Grid& mesh, Accuracy order
 )
 {
@@ -82,14 +82,19 @@ void Solver::computeSecondDeriv(
     }
 }
 
-void Solver::implicitscheme(
+void Solver::implicitFirstDeriv(
     Grid& mesh, Accuracy order
 )
 {
-    impSchemes pade;
-
     if(order == Accuracy::fourthOrder){
+        pade4 pade;
         mesh.f_phi.assign(mesh.N+1, 0.0);
-        pade.pade4(mesh, mesh.f_phi);
+        pade.firstDeriv(mesh, mesh.f_phi);
+    }
+
+    else if(order == Accuracy::sixthOrder){
+        pade6 pade;
+        mesh.f_phi.assign(mesh.N+1, 0.0);
+        pade.firstDeriv(mesh, mesh.f_phi);
     }
 }

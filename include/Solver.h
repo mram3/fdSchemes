@@ -10,17 +10,22 @@
 class Solver{
 public:
 
-    void computeFirstDeriv(
+    void explicitFirstDeriv(
         Grid& mesh, Accuracy order
     );
 
-    void computeSecondDeriv(
+    void explicitSecondDeriv(
         Grid& mesh, Accuracy order
     );
 
-    void implicitscheme(
+    void implicitFirstDeriv(
         Grid& mesh, Accuracy order
     );
+
+    void implicitSecondDeriv(
+        Grid& mesh, Accuracy order
+    );
+
 };
 
 #endif
