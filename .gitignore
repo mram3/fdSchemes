@@ -6,6 +6,7 @@ pds
 
 *.csv
 *.png
+*.nb
 
 # Ignore VS Code settings
 .vscode/

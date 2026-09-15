@@ -9,7 +9,7 @@ void Solver::explicitFirstDeriv(
 
         mesh.f_phi.assign(mesh.N+1, 0.0);
 
-        FDFA fd; BDFA bd;
+        FD1A fd; BD1A bd;
         for(int i = 0; i < offset; i++){
             mesh.f_phi[i] = fd.firstDeriv(mesh, i);
         }
@@ -24,7 +24,7 @@ void Solver::explicitFirstDeriv(
 
         mesh.f_phi.assign(mesh.N+1, 0.0);
 
-        FDSA fd; CDSA cd; BDSA bd;
+        FD2A fd; CD2A cd; BD2A bd;
         for(int i = 0; i < offset; i++){
             mesh.f_phi[i] = fd.firstDeriv(mesh, i);
         }
@@ -46,7 +46,7 @@ void Solver::explicitSecondDeriv(
     if(order == Accuracy::firstOrder){
         int left_off = 1;
         int right_off = 1;
-        FDFA fd; CDFA cd; BDFA bd;
+        FD1A fd; CD1A cd; BD1A bd;
 
         mesh.s_phi.assign(mesh.N+1, 0.0);
 
@@ -65,7 +65,7 @@ void Solver::explicitSecondDeriv(
     else if(order == Accuracy::secondOrder){
         int left_off = 1;
         int right_off = 2;
-        FDSA fd; CDSA cd; BDSA bd;
+        FD2A fd; CD2A cd; BD2A bd;
 
         mesh.s_phi.assign(mesh.N+1, 0.0);
 

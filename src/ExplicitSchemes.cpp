@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include<cmath>
 
-double CDSA::firstDeriv(
+double CD2A::firstDeriv(
     const Grid& mesh, int i
 ) const
 {
@@ -17,7 +17,7 @@ double CDSA::firstDeriv(
     return a;
 }
 
-double CDSA::secondDeriv(
+double CD2A::secondDeriv(
     const Grid& mesh, int i
 ) const
 {
@@ -39,14 +39,14 @@ double CDSA::secondDeriv(
     return 2 * a;
 }
 
-double CDFA::firstDeriv(
+double CD1A::firstDeriv(
     const Grid& mesh, int i
 ) const
 {
     throw std::runtime_error("Error: First order accurate CDS does not exist");
     return 0.0;
 }
-double CDFA::secondDeriv(
+double CD1A::secondDeriv(
     const Grid& mesh, int i
 ) const
 {
@@ -63,7 +63,7 @@ double CDFA::secondDeriv(
     return 2 * a;
 }
 
-double FDSA::firstDeriv(
+double FD2A::firstDeriv(
     const Grid& mesh, int i
 ) const
 {
@@ -78,7 +78,7 @@ double FDSA::firstDeriv(
     return a;
 }
 
-double FDSA::secondDeriv(
+double FD2A::secondDeriv(
     const Grid& mesh, int i
 )const
 {
@@ -100,7 +100,7 @@ double FDSA::secondDeriv(
     return 2 * a;
 }
 
-double FDFA::firstDeriv(
+double FD1A::firstDeriv(
     const Grid& mesh, int i
 )const
 {
@@ -111,7 +111,7 @@ double FDFA::firstDeriv(
     return (phi2-phi1)/h1;
 }
 
-double FDFA::secondDeriv(
+double FD1A::secondDeriv(
     const Grid& mesh, int i
 )const
 {
@@ -128,7 +128,7 @@ double FDFA::secondDeriv(
     return 2 * a;
 }
 
-double BDSA::firstDeriv(
+double BD2A::firstDeriv(
     const Grid& mesh, int i
 ) const
 {
@@ -143,7 +143,7 @@ double BDSA::firstDeriv(
     return a;
 }
 
-double BDSA::secondDeriv(
+double BD2A::secondDeriv(
    const Grid& mesh, int i
 )const
 {
@@ -165,7 +165,7 @@ double BDSA::secondDeriv(
     return 2 * a;
 }
 
-double BDFA::firstDeriv(
+double BD1A::firstDeriv(
     const Grid& mesh, int i
 )const
 {
@@ -176,7 +176,7 @@ double BDFA::firstDeriv(
     return (phi1 - phi2)/h1;
 }
 
-double BDFA::secondDeriv(
+double BD1A::secondDeriv(
     const Grid& mesh, int i
 )const
 {

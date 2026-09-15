@@ -19,12 +19,23 @@ public:
 };
 
 /*Abbreviations: 
-        CD - Centre Difference   FA - First order accurate
-        FD - Forward Difference  SA - Second order accurate
-        BD - Backward Difference
+        CD - Centre Difference   1A - First order accurate
+        FD - Forward Difference  2A - Second order accurate
+        BD - Backward Difference 4A - Fourth order accurate
 */
 
-class CDSA: public expSchemes //CHILD 1
+class CD4A: public expSchemes
+{
+public:
+    double firstDeriv(
+       const Grid& mesh, int i
+    ) const override;
+
+    double secondDeriv(
+        const Grid& mesh, int i
+    ) const override;
+};
+class CD2A: public expSchemes //CHILD 1
 {
 public:
     double firstDeriv(
@@ -36,7 +47,7 @@ public:
     ) const override;
 };
 
-class CDFA: public expSchemes //CHILD 2
+class CD1A: public expSchemes //CHILD 2
 {
 public:
     double firstDeriv(
@@ -48,7 +59,18 @@ public:
     ) const override;
 };
 
-class FDSA: public expSchemes //CHILD 3
+class FD4A: public expSchemes
+{
+public:
+    double firstDeriv(
+       const Grid& mesh, int i
+    ) const override;
+
+    double secondDeriv(
+        const Grid& mesh, int i
+    ) const override;
+};
+class FD2A: public expSchemes //CHILD 3
 {
 public:
     double firstDeriv(
@@ -60,7 +82,7 @@ public:
     ) const override;
 };
 
-class FDFA: public expSchemes //CHILD 4
+class FD1A: public expSchemes //CHILD 4
 {
 public:
     double firstDeriv(
@@ -72,7 +94,18 @@ public:
     ) const override;
 };
 
-class BDSA: public expSchemes //CHILD 5
+class BD4A: public expSchemes
+{
+public:
+    double firstDeriv(
+       const Grid& mesh, int i
+    ) const override;
+
+    double secondDeriv(
+        const Grid& mesh, int i
+    ) const override;
+};
+class BD2A: public expSchemes //CHILD 5
 {
 public:
     double firstDeriv(
@@ -84,7 +117,7 @@ public:
     ) const override;
 };
 
-class BDFA: public expSchemes //CHILD 6
+class BD1A: public expSchemes //CHILD 6
 {
 public:
     double firstDeriv(
