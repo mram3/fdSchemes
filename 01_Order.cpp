@@ -21,7 +21,7 @@ using namespace std;
 double meshFunction(int i, double xmin, double xmax, int N){
     double PI = acos(-1);
     double dx = (double)i/N;
-    double dx_ = 0.1*sin(2*PI*dx);
+    double dx_ = 0.1*sin(2*PI*dx+1);
     return xmin + (xmax-xmin)*(dx+dx_);
 }
 
