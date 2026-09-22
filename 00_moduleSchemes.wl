@@ -18,8 +18,8 @@ GetFiniteDifference[xPoints_List, fPoints_List, derivOrder_Integer] := Module[{n
   (*solving for the coefficients*)
   sol = Solve[eqns, coeffs];
   
-  (*extracting the required coefficients with numerical prefactor base\
-d on the required derivative*)
+  (*extracting the required coefficients with numerical prefactor 
+  based on the required derivative*)
   scheme = (derivOrder!)*coeffs[[derivOrder + 1]] /. sol[[1]];
   
   (*simplifying the result*)

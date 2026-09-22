@@ -31,7 +31,7 @@ public:
     ) const override;
 };
 
-class pade6 : public impSchemes
+/*class pade6 : public impSchemes
 {
 public:
     void firstDeriv(

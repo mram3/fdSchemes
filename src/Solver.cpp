@@ -37,6 +37,25 @@ void Solver::explicitFirstDeriv(
             mesh.f_phi[i] = bd.firstDeriv(mesh, i);
         }
     }
+
+    else if(order == Accuracy::fourthOrder){
+        int offset = 2;
+
+        mesh.f_phi.assign(mesh.N+1, 0.0);
+
+        FD4A fd; CD4A cd; BD4A bd;
+        for(int i = 0; i < offset; i++){
+            mesh.f_phi[i] = fd.firstDeriv(mesh, i);
+        }
+
+        for(int i = offset; i<mesh.N-offset; i++){
+            mesh.f_phi[i] = cd.firstDeriv(mesh, i);
+        }
+
+        for(int i = mesh.N-offset; i<=mesh.N; i++){
+            mesh.f_phi[i] = bd.firstDeriv(mesh, i);
+        }
+    }
 }
 
 void Solver::explicitSecondDeriv(
@@ -80,6 +99,25 @@ void Solver::explicitSecondDeriv(
             mesh.s_phi[i] = bd.secondDeriv(mesh, i);
         }
     }
+
+    else if(order == Accuracy::fourthOrder){
+        int offset = 2;
+
+        mesh.s_phi.assign(mesh.N+1, 0.0);
+
+        FD4A fd; CD4A cd; BD4A bd;
+        for(int i = 0; i < offset; i++){
+            mesh.s_phi[i] = fd.secondDeriv(mesh, i);
+        }
+
+        for(int i = offset; i<mesh.N-offset; i++){
+            mesh.s_phi[i] = cd.secondDeriv(mesh, i);
+        }
+
+        for(int i = mesh.N-offset; i<=mesh.N; i++){
+            mesh.s_phi[i] = bd.secondDeriv(mesh, i);
+        }
+    }
 }
 
 void Solver::implicitFirstDeriv(
@@ -92,9 +130,26 @@ void Solver::implicitFirstDeriv(
         pade.firstDeriv(mesh, mesh.f_phi);
     }
 
-    else if(order == Accuracy::sixthOrder){
+    /*else if(order == Accuracy::sixthOrder){
         pade6 pade;
         mesh.f_phi.assign(mesh.N+1, 0.0);
         pade.firstDeriv(mesh, mesh.f_phi);
+    }*/
+}
+
+void Solver::implicitSecondDeriv(
+    Grid& mesh, Accuracy order
+)
+{
+    if(order == Accuracy::fourthOrder){
+        pade4 pade;
+        mesh.s_phi.assign(mesh.N+1, 0.0);
+        pade.secondDeriv(mesh, mesh.s_phi);
     }
+
+    /*else if(order == Accuracy::sixthOrder){
+        pade6 pade;
+        mesh.f_phi.assign(mesh.N+1, 0.0);
+        pade.firstDeriv(mesh, mesh.f_phi);
+    }*/
 }

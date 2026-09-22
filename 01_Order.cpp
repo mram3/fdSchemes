@@ -1,4 +1,12 @@
 /*
+Program to demonstrate the order of various schemes in this library
+
+1) meshFunction : Control the spacing between grids
+2) exactFunction : Function for which derivatives are to be calculated
+3) Accuracy results are output in the terminal, while the derivative values and error are stored in
+   01_Order_1st_deriv.csv & 01_Order_2nd_deriv.csv
+4) 01_Order_plot.py : Plot the derivatives and errors to visually compare
+
 Compiling Instruction: g++ 1_Order.cpp src/*.cpp -Iinclude -std=c++17 -o order && ./order
 */
 
@@ -12,19 +20,22 @@ using namespace std;
 
 double meshFunction(int i, double xmin, double xmax, int N){
     double PI = acos(-1);
-    return -((xmax-xmin)/2)*cos(i*PI/N) + ((xmax+xmin)/2);
+    double dx = (double)i/N;
+    double dx_ = 0.1*sin(2*PI*dx);
+    return xmin + (xmax-xmin)*(dx-dx_+1);
 }
 
+//exact function : f(x) = exp(-x^2)
 double exactFunction(double x){
-    return exp(-x)*sin(x);
+    return exp(-x*x);
 }
-
+//first derivative : f'(x) = -2xexp(-x^2)
 double exactFirstDeriv(double x){
-    return exp(-x) * (cos(x)-sin(x));
+    return -2.0 * x * exp(-x*x);
 }
-
+//second derivative : f''(x) = (4*x^2-2)*exp(-x^2)
 double exactSecondDeriv(double x){
-    return -2*exp(-x)*cos(x);
+    return (4.0*x*x-2.0) * exp(-x*x);
 }
 
 double getError_n_write(
@@ -114,8 +125,8 @@ int main(){
     int N1 = 50;
     int N2 = 100;
 
-    double xmin = 0;
-    double xmax = 10;
+    double xmin = -4.0;
+    double xmax = 4.0;
 
     //First Derivative
     ofstream file1("First_Derivative.csv");

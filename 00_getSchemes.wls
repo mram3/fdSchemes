@@ -1,6 +1,5 @@
 #!/usr/bin/env wolframscript
 
-(* Load your custom library *)
 SetDirectory[DirectoryName[$InputFileName]];
 Get["00_moduleSchemes.wl"];
 
