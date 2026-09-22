@@ -50,5 +50,4 @@ ax2.legend()
 ax2.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
 
 plt.tight_layout()
-plt.savefig("1_PolynomialDS_plot.png", dpi = 300)
 plt.show()

@@ -7,7 +7,7 @@ Program to implement the compact scheme and compare it with conventional FD sche
 3) Results are stored in 02_Compact_results.csv
 4) 02_Compact_plot.py : Plot the derivatives and errors to visually compare
 
-Compiling Instruction: g++ 2_CCDS.cpp src/*.cpp -Iinclude -std=c++17 -o ccds && ./ccds
+Compiling Instruction: g++ 02_Compact.cpp src/*.cpp -Iinclude -std=c++17 -o ccds && ./ccds
 */
 
 #include <iostream>
@@ -97,6 +97,6 @@ int main(){
         file << mesh.x[i] << "," << A[i] << "," << B[i] << "," << C[i]<<endl;
     }
 
-    cout << "Results are stored in 02_Compact_results.csv file";
+    cout << "Results are stored in 02_Compact_results.csv file" << endl;
     return 0;
 }

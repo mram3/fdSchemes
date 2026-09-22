@@ -7,7 +7,7 @@ Program to demonstrate the order of various schemes in this library
    01_Order_1st_deriv.csv & 01_Order_2nd_deriv.csv
 4) 01_Order_plot.py : Plot the derivatives and errors to visually compare
 
-Compiling Instruction: g++ 1_Order.cpp src/*.cpp -Iinclude -std=c++17 -o order && ./order
+Compiling Instruction: g++ 01_Order.cpp src/*.cpp -Iinclude -std=c++17 -o order && ./order
 */
 
 #include "Solver.h"
@@ -22,7 +22,7 @@ double meshFunction(int i, double xmin, double xmax, int N){
     double PI = acos(-1);
     double dx = (double)i/N;
     double dx_ = 0.1*sin(2*PI*dx);
-    return xmin + (xmax-xmin)*(dx-dx_+1);
+    return xmin + (xmax-xmin)*(dx+dx_);
 }
 
 //exact function : f(x) = exp(-x^2)
@@ -122,8 +122,8 @@ double getError_n_write(
 int main(){
 
 
-    int N1 = 50;
-    int N2 = 100;
+    int N1 = 100;
+    int N2 = 200;
 
     double xmin = -4.0;
     double xmax = 4.0;

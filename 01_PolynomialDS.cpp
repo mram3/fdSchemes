@@ -116,6 +116,6 @@ int main(){
         }
     }
 
-    cout << "Derivative values are stored in 1_PolynomialDS_Output.csv";
+    cout << "Derivative values are stored in 1_PolynomialDS_Output.csv"<<endl;
     return 0;
 }
